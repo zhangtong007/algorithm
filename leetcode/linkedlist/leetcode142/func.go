@@ -1,10 +1,10 @@
 package leetcode142
 
-import "core/leetcode/datastruct"
+import . "core/leetcode/datastruct"
 
 const max = 100000000
 
-func detectCycle(head *datastruct.ListNode) *datastruct.ListNode {
+func detectCycle(head *ListNode) *ListNode {
 	for head != nil {
 		if head.Val == max {
 			return head

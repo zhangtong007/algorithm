@@ -1,16 +1,16 @@
 package leetcode25
 
-import "core/leetcode/datastruct"
+import . "core/leetcode/datastruct"
 
-func reverseKGroup(head *datastruct.ListNode, k int) *datastruct.ListNode {
-	protected := &datastruct.ListNode{
+func reverseKGroup(head *ListNode, k int) *ListNode {
+	protected := &ListNode{
 		Val:  -1,
 		Next: head,
 	}
 	last := protected
 	var (
-		groupEnd      *datastruct.ListNode
-		nextGroupHead *datastruct.ListNode
+		groupEnd      *ListNode
+		nextGroupHead *ListNode
 	)
 	for head != nil {
 		// 1. 分组(往后走k-1步, 找到1组)
@@ -32,7 +32,7 @@ func reverseKGroup(head *datastruct.ListNode, k int) *datastruct.ListNode {
 }
 
 // 拿到每一组的最末尾值
-func getEnd(head *datastruct.ListNode, k int) *datastruct.ListNode {
+func getEnd(head *ListNode, k int) *ListNode {
 	for head != nil {
 		k--
 		if k == 0 {
@@ -45,7 +45,7 @@ func getEnd(head *datastruct.ListNode, k int) *datastruct.ListNode {
 }
 
 // 反转链表，在stop停止
-func reverse(head *datastruct.ListNode, stop *datastruct.ListNode) {
+func reverse(head *ListNode, stop *ListNode) {
 	last := head
 	for head != stop {
 		last, head, head.Next = head, head.Next, last
