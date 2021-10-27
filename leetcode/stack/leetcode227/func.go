@@ -72,68 +72,49 @@ vals: 1 2 + 3 4 * 5 6 7 * + - -
 1+2 - 3*4 - (5 + 6*7)
 */
 
-type Stack struct {
-	vals []string
-	top  int
+var opts = map[string]func(a, b int) int{
+	"+": func(a, b int) int {
+		return a + b
+	},
+	"-": func(a, b int) int {
+		return a - b
+	},
+	"*": func(a, b int) int {
+		return a * b
+	},
+	"/": func(a, b int) int {
+		return a / b
+	},
 }
 
-func (s *Stack) push(val string) {
-	s.top++
-	s.vals[s.top] = val
-}
-
-func (s *Stack) pop() string {
-	val := s.vals[s.top]
-	s.top--
-	return val
-}
-
-func (s *Stack) peek() string {
-	return s.vals[s.top]
-}
-
-func (s *Stack) isEmpty() bool {
-	return s.top == -1
-}
-
-// 逆波兰表达式求值方法
+// 提交
 func evalRPN(tokens []string) int {
-	stack := &Stack{
-		vals: make([]string, len(tokens)),
-		top:  -1,
-	}
-	for _, val := range tokens {
-		// 不是操作数，则数据压栈
-		if !isOpt(val) {
-			stack.push(val)
+	stack := make([]string, 0, len(tokens))
+	var (
+		num1 int
+		num2 int
+	)
+	for i := range tokens {
+		if !isOpt(tokens[i]) {
+			stack = append(stack, tokens[i])
 			continue
 		}
-		// 否则，处理计算
-		stack.calculate(val)
+		num2, _ = strconv.Atoi(stack[len(stack)-1])
+		stack = stack[:len(stack)-1]
+		num1, _ = strconv.Atoi(stack[len(stack)-1])
+		stack = stack[:len(stack)-1]
+		stack = append(stack, strconv.Itoa(cal(num1, num2, tokens[i])))
 	}
-	v, _ := strconv.Atoi(stack.pop())
-	return v
+	ret, _ := strconv.Atoi(stack[0])
+	return ret
+}
+
+func cal(num1, num2 int, opt string) int {
+	return opts[opt](num1, num2)
 }
 
 func isOpt(val string) bool {
 	return val == "+" || val == "-" || val == "*" || val == "/"
-}
-
-func (s *Stack) calculate(opt string) {
-	var newVal int
-	num2, _ := strconv.Atoi(s.pop())
-	num1, _ := strconv.Atoi(s.pop())
-	switch opt {
-	case "+":
-		newVal = num1 + num2
-	case "-":
-		newVal = num1 - num2
-	case "*":
-		newVal = num1 * num2
-	case "/":
-		newVal = num1 / num2
-	}
-	s.push(strconv.Itoa(newVal))
 }
 
 // ----------以上是逆波兰式计算方式---------
@@ -144,54 +125,62 @@ func calculate(s string) int {
 	return evalRPN(strs)
 }
 
-// 转化为逆波兰式数组
 func process(s string) []string {
-	opts := &Stack{
-		vals: make([]string, len(s)),
-		top:  -1,
-	}
-	tockens := &Stack{
-		vals: make([]string, len(s)),
-		top:  -1,
-	}
-	// 用于接收数字
-	bytes := make([]byte, 0)
-	for i, n := 0, len(s); i < n; i++ {
-		// 数字， 加到bytes里
+	s += ""
+	number := make([]byte, 0)
+	tokens := make([]string, 0)
+	opts := make([]byte, 0)
+	needZero := true
+	for i := range s {
 		if s[i] >= '0' && s[i] <= '9' {
-			bytes = append(bytes, s[i])
+			number = append(number, s[i])
+			needZero = false
 			continue
 		} else {
-			// 如果num不为空 先将数字入栈，重新创建bytes
-			if len(bytes) != 0 {
-				tockens.push(string(bytes))
-				bytes = make([]byte, 0)
+			if len(number) != 0 {
+				tokens = append(tokens, string(number))
+				number = make([]byte, 0)
 			}
 		}
-		// 空格不做处理
 		if s[i] == ' ' {
 			continue
 		}
-		// 如果栈顶大于当前元素
-		curOpt := s[i : i+1]
-		for !opts.isEmpty() && getPriority(opts.peek()) >= getPriority(curOpt) {
-			tockens.push(opts.pop())
+		if s[i] == '(' {
+			needZero = true
+			opts = append(opts, '(')
+			continue
 		}
-		opts.push(curOpt)
+		if s[i] == ')' {
+			needZero = false
+			for opts[len(opts)-1] != '(' {
+				tokens = append(tokens, string(opts[len(opts)-1]))
+				opts = opts[:len(opts)-1]
+			}
+		}
+		if (s[i] == '+' || s[i] == '-') && needZero {
+			tokens = append(tokens, "0")
+		}
+		curRank := getRank(s[i])
+		for (len(opts) > 0) && getRank(opts[len(opts)-1]) >= curRank {
+			tokens = append(tokens, string(opts[len(opts)-1]))
+			opts = opts[:len(opts)-1]
+		}
+		opts = append(opts, s[i])
+		needZero = true
 	}
-	for opts.top != -1 {
-		tockens.push(opts.pop())
+	for len(opts) != 0 {
+		tokens = append(tokens, string(opts[len(opts)-1]))
+		opts = opts[:len(opts)-1]
 	}
-	return tockens.vals[:tockens.top+1]
+	return tokens
 }
 
-func getPriority(ch string) int {
-	if ch == "+" || ch == "-" {
-		return 0
-	}
-	if ch == "*" || ch == "/" {
+func getRank(i byte) int {
+	if i == '+' || i == '-' {
 		return 1
 	}
-	// 括号
-	return 2
+	if i == '*' || i == '/' {
+		return 2
+	}
+	return 3
 }
