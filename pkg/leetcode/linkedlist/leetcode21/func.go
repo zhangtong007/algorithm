@@ -1,6 +1,6 @@
 package leetcode21
 
-import . "core/leetcode/datastruct"
+import . "core/pkg/leetcode/datastruct"
 
 func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1 == nil {
