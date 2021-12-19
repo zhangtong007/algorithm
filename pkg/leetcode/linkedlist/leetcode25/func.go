@@ -1,6 +1,6 @@
 package leetcode25
 
-import . "core/leetcode/datastruct"
+import . "core/pkg/leetcode/datastruct"
 
 func reverseKGroup(head *ListNode, k int) *ListNode {
 	protected := &ListNode{
