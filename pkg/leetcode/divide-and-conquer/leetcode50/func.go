@@ -1,15 +1,27 @@
-package main
+package leetcode50
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func main() {
-	fmt.Println(myPow(50.0, -2147483648))
-}
-
-func test(a, b int) {
-	fmt.Println(-1 << 1)
+// 方法1：暴力破解 会超时
+func myPow1(x float64, n int) float64 {
+	if n == 0 {
+		return 1
+	}
+	var (
+		ans  float64
+		flag bool
+	)
+	if n < 0 {
+		n = -n
+		flag = true
+	}
+	for i := 1; i <= n; i++ {
+		ans *= x
+	}
+	if flag {
+		return 1.0 / ans
+	}
+	return ans
 }
 
 func myPow(x float64, n int) float64 {
