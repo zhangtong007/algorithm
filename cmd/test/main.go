@@ -62,3 +62,11 @@ func equalMap(m1, m2 map[string]bool) bool {
 	}
 	return true
 }
+
+func IsOdd1(val int) bool {
+	return val&1 == 1
+}
+
+func IsOdd2(val int) bool {
+	return val%2 != 0
+}
