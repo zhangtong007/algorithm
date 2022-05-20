@@ -1,10 +1,6 @@
 package leetcode105
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 /**
 基于二叉树各个值不同的场景：

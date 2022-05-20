@@ -1,10 +1,6 @@
 package leetcode106
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 func buildTree(inorder []int, postorder []int) *TreeNode {
 	if len(inorder) <= 0 {

@@ -1,10 +1,6 @@
 package leetcode98
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 // 方法1：暴力破解
 // 二叉搜索树中序遍历一定升序排列，先得到中序遍历数组，而后验证数组有序性

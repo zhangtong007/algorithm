@@ -1,10 +1,6 @@
 package leetcode104
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 // 方法1：广搜，看层数
 func maxDepth1(root *TreeNode) int {

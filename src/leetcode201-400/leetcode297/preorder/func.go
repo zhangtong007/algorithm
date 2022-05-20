@@ -3,13 +3,9 @@ package preorder
 import (
 	"strconv"
 	"strings"
-)
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+	. "core/src/datastruct"
+)
 
 // 先序遍历
 type Codec struct {

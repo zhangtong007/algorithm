@@ -1,6 +1,6 @@
 package leetcode142
 
-import . "core/pkg/leetcode/datastruct"
+import . "core/src/datastruct"
 
 const max = 100000000
 

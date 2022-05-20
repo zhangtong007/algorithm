@@ -1,10 +1,6 @@
 package leetcode111
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 // 方法1：dfs
 func minDepth1(root *TreeNode) int {

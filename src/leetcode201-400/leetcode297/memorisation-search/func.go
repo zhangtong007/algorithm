@@ -3,13 +3,9 @@ package memorisationsearch
 import (
 	"strconv"
 	"strings"
-)
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+	. "core/src/datastruct"
+)
 
 var cases = map[string]*TreeNode{}
 

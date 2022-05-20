@@ -1,10 +1,6 @@
 package leetcode226
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 func invertTree(root *TreeNode) *TreeNode {
 	if root == nil {

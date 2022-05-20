@@ -2,11 +2,7 @@ package leetcode236
 
 // 二叉树两个节点的公共祖先
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
+import . "core/src/datastruct"
 
 type Ans struct {
 	node *TreeNode
