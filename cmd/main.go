@@ -2,19 +2,27 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"math/rand"
 
-	lcr103 "core/src/LCR/LCR103"
+	quicksort "core/src/sort/quick-sort"
 )
 
+// main下面主要用于验证各个包下的demo
 func main() {
-	// leetcodeTest()
-	fmt.Println(int(1e10) <= math.MaxInt32)
+	leetcodeTest()
+	// fmt.Println(int(1e10) <= math.MaxInt32)
 }
 
 func leetcodeTest() {
-	fmt.Println(lcr103.TestDemo(
-		[]int{2},
-		3,
+	fmt.Println(quicksort.TestDemo(
+		randomNums(1e6),
 	))
+}
+
+func randomNums(num int) []int {
+	nums := make([]int, num)
+	for i := range nums {
+		nums[i] = rand.Intn(num)
+	}
+	return nums
 }
