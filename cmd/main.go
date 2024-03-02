@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	leetcode322 "algorithm/src/leetcode/0322"
 )
 
 const (
@@ -15,9 +13,5 @@ const (
 
 // main下面主要用于验证各个包下的demo
 func main() {
-	fmt.Println(
-		leetcode322.Test(
-			[]int{}, 1,
-		),
-	)
+	fmt.Println()
 }
