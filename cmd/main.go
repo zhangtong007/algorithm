@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-	"math"
+	leetcode232 "core/src/leetcode/0232"
 )
 
 const (
@@ -14,5 +13,15 @@ const (
 
 // main下面主要用于验证各个包下的demo
 func main() {
-	fmt.Println(int(math.Pow(3, 2)))
+	queue := leetcode232.Constructor()
+	queue.Push(1)
+	queue.Print()
+	queue.Push(2)
+	queue.Print()
+	queue.Peek()
+	queue.Print()
+	queue.Pop()
+	queue.Print()
+	queue.Empty()
+	queue.Print()
 }
