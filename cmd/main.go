@@ -1,7 +1,7 @@
 package main
 
 import (
-	leetcode232 "core/src/leetcode/0232"
+	"fmt"
 )
 
 const (
@@ -13,15 +13,15 @@ const (
 
 // main下面主要用于验证各个包下的demo
 func main() {
-	queue := leetcode232.Constructor()
-	queue.Push(1)
-	queue.Print()
-	queue.Push(2)
-	queue.Print()
-	queue.Peek()
-	queue.Print()
-	queue.Pop()
-	queue.Print()
-	queue.Empty()
-	queue.Print()
+	fmt.Println(toBit("a"))
+	fmt.Println(toBit("abc"))
+	fmt.Println(toBit("aaa"))
+}
+
+func toBit(word string) int {
+	ans := 0
+	for i := range word {
+		ans |= 1 << (word[i] - 'a')
+	}
+	return ans
 }
